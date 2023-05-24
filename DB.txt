@@ -1,0 +1,50 @@
+create database Accounting;
+
+use Accounting;
+
+create table Users(
+Id int not null identity(1,1) primary key,
+Login varchar(30) not null,
+Name varchar(30) not null,
+LastName varchar(30) not null,
+Password varchar(30) not null,
+City varchar(30) not null
+);
+
+create table Product(
+Id int not null identity(1,1) primary key,
+ProductName varchar(30) not null,
+Description varchar(30) not null,
+Price float not null
+);
+
+create table Orders(
+Id int not null identity(1,1) primary key,
+UserId int not null,
+ProductId int not null,
+Quantity int not null,
+DeliveryAddress varchar(50) not null,
+foreign key(UserId) references Users(id),
+foreign key(ProductId) references Product(id)
+);
+
+create table OrderStatus(
+Id int not null identity(1,1) primary key,
+OrderId INT NOT NULL,
+Status VARCHAR(50) NOT NULL,
+FOREIGN KEY (OrderId) REFERENCES Orders(Id)
+);
+
+CREATE TABLE SaleReports (
+Id INT not null identity(1,1) PRIMARY KEY,
+ProductId INT NOT NULL,
+Quantity INT NOT NULL,
+FOREIGN KEY (ProductId) REFERENCES Product(id)
+);
+
+CREATE TABLE PopularProducts (
+Id INT not null identity(1,1) PRIMARY KEY,
+ProductId INT NOT NULL,
+Count INT NOT NULL,
+FOREIGN KEY (ProductId) REFERENCES Product(id)
+);
